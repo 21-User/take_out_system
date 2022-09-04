@@ -117,13 +117,7 @@
         computed: {
           rules () {
             return {
-              //账号
-              username: [
-                {
-                  required: true, 'validator': checkUserName, trigger: 'blur'
-                }
-              ],
-              //姓名
+              username: [{ required: true, 'validator': checkUserName, trigger: 'blur' }],
               name: [{ required: true, 'validator': checkName, 'trigger': 'blur' }],
               'phone': [{ 'required': true, 'validator': checkPhone, 'trigger': 'blur' }],
               'idNumber': [{ 'required': true, 'validator': validID, 'trigger': 'blur' }]
@@ -163,7 +157,8 @@
                   }
                   addEmployee(params).then(res => {
                     if (res.code === 1) {
-                      this.$message.success('员工添加成功！')
+                      debugger
+                      this.$message.success(res.msg || '员工添加成功！')
                       if (!st) {
                         this.goBack()
                       } else {

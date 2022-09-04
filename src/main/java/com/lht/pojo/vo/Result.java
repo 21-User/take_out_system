@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * 全局返回结果类
- * @Author lihetao
+ * @Author 21
  * @Date 2022/9/2 11:35
  */
 @Data
