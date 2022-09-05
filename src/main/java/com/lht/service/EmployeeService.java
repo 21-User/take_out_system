@@ -36,5 +36,5 @@ public interface EmployeeService extends IService<Employee> {
      * @param req
      * @param employee
      */
-    Result<String> edit(HttpServletRequest req, Employee employee);
+    Result<Employee> edit(HttpServletRequest req, Employee employee);
 }

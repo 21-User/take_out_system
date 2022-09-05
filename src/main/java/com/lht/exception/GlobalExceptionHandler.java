@@ -40,4 +40,11 @@ public class GlobalExceptionHandler {
 
         return Result.error("账号不能重复！");
     }
+
+    @ExceptionHandler(ClassCastException.class)
+    public Result<String> classCastException(ClassCastException e) {
+        log.info("异常信息为:{}", e.getMessage());
+
+        return Result.error("类型转换异常");
+    }
 }

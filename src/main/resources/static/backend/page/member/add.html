@@ -42,8 +42,7 @@
           <el-input
             v-model="ruleForm.phone"
             placeholder="请输入手机号"
-            maxlength="20"
-          />
+            maxlength="20"></el-input>
         </el-form-item>
         <el-form-item
           label="性别:"
@@ -61,8 +60,7 @@
           <el-input
             v-model="ruleForm.idNumber"
             placeholder="请输入身份证号"
-            maxlength="20"
-          />
+            maxlength="20"></el-input>
         </el-form-item>
         <div class="subBox address">
           <el-form-item>
@@ -157,7 +155,6 @@
                   }
                   addEmployee(params).then(res => {
                     if (res.code === 1) {
-                      debugger
                       this.$message.success(res.msg || '员工添加成功！')
                       if (!st) {
                         this.goBack()

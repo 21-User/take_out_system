@@ -77,18 +77,17 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
     }
 
     @Override
-    public Result<String> edit(HttpServletRequest req, Employee employee) {
+    public Result<Employee> edit(HttpServletRequest req, Employee employee) {
 
-//
-//        Long empId =(Long) req.getSession().getAttribute("employee");
-////
-//        employee.setUpdateUser(empId);
+        Long empId =(Long) req.getSession().getAttribute("employee");
+
+        employee.setUpdateUser(empId);
         employee.setUpdateTime(new Date());
 
         int affectedRows = employeeMapper.updateById(employee);
 
         if (affectedRows > 0) {
-            return Result.success("修改成功！");
+            return Result.success(employee);
         }
         return Result.error("修改失败！");
     }

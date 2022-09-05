@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.constructor.BaseConstructor;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +71,7 @@ public class EmployeeController {
         HttpSession session = req.getSession();
 
         //登录成功之后将员工信息存放到域对象中
-        session.setAttribute("employee", empData);
+        session.setAttribute("employee", empData.getId());
 
         //将session添加到cookie中
         Cookie cookie = new Cookie("JSESSIONID", session.getId());
@@ -107,7 +108,7 @@ public class EmployeeController {
     public Result<Employee> add(HttpServletRequest req, @RequestBody Employee employee) {
         log.info("新增的员工信息{}", employee);
 
-        return employeeService.add(req, employee);
+        return employeeService.add (req, employee);
     }
 
     /**
@@ -132,8 +133,20 @@ public class EmployeeController {
      * @return
      */
     @PutMapping
-    public Result<String> update(HttpServletRequest req, @RequestBody Employee employee) {
+    public Result<Employee> update(HttpServletRequest req, @RequestBody Employee employee) {
 
         return employeeService.edit(req, employee);
+    }
+
+    @GetMapping({"/{id}"})
+    public Result<Employee> getOne(@PathVariable("id") Long id) {
+
+        Employee employee = employeeService.getById(id);
+
+        if (employee == null) {
+            return Result.error("获取失败！");
+        }
+
+        return Result.success(employee);
     }
 }
