@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * 添加员工的实习类
@@ -36,14 +35,6 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
 
         //将密码进行md5加密
         employee.setPassword(DigestUtils.md5DigestAsHex("password".getBytes()));
-
-        //获取域对象中的员工信息
-        Long empId =(Long) req.getSession().getAttribute("employee");
-
-        employee.setCreateTime(new Date());
-        employee.setCreateUser(empId);
-        employee.setUpdateTime(new Date());
-        employee.setUpdateUser(empId);
 
         int affectRows = employeeMapper.insert(employee);
 
@@ -78,11 +69,6 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
 
     @Override
     public Result<Employee> edit(HttpServletRequest req, Employee employee) {
-
-        Long empId =(Long) req.getSession().getAttribute("employee");
-
-        employee.setUpdateUser(empId);
-        employee.setUpdateTime(new Date());
 
         int affectedRows = employeeMapper.updateById(employee);
 

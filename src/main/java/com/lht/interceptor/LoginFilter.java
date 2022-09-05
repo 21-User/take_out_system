@@ -1,6 +1,7 @@
 package com.lht.interceptor;
 
 import com.alibaba.fastjson.JSON;
+import com.lht.common.BaseContext;
 import com.lht.pojo.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -59,7 +60,16 @@ public class LoginFilter implements Filter {
         }
 
         if (req.getSession().getAttribute("employee") != null) {
-            log.info("用户登录的id{}", req.getSession().getAttribute("employee"));
+            //获取域对象中存放的id
+            Object empId = req.getSession().getAttribute("employee");
+
+            log.info("用户登录的id{}", empId);
+
+            //获取域对象中的id
+            Long id =(Long) empId;
+            //设置当前线程id为域对象中的id
+            BaseContext.setCurrentId(id);
+
             filterChain.doFilter(req, rsp);
             return;
         }
