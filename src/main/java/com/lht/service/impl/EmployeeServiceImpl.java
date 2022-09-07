@@ -30,8 +30,13 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
     @Autowired
     private EmployeeMapper employeeMapper;
 
+    /**
+     * 新增员工信息业务实现
+     * @param employee
+     * @return
+     */
     @Override
-    public Result<Employee> add (HttpServletRequest req, Employee employee) {
+    public Result<Employee> add (Employee employee) {
 
         //将密码进行md5加密
         employee.setPassword(DigestUtils.md5DigestAsHex("password".getBytes()));
@@ -67,6 +72,12 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
         return pageData;
     }
 
+    /**
+     * 编辑员工信息的业务实现
+     * @param req
+     * @param employee
+     * @return
+     */
     @Override
     public Result<Employee> edit(HttpServletRequest req, Employee employee) {
 

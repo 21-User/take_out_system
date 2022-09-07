@@ -103,10 +103,10 @@ public class EmployeeController {
      * @return
      */
     @PostMapping
-    public Result<Employee> add(HttpServletRequest req, @RequestBody Employee employee) {
+    public Result<Employee> add(@RequestBody Employee employee) {
         log.info("新增的员工信息{}", employee);
 
-        return employeeService.add (req, employee);
+        return employeeService.add (employee);
     }
 
     /**

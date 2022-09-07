@@ -17,11 +17,10 @@ public interface EmployeeService extends IService<Employee> {
 
     /**
      * 新增员工信息接口
-     * @param req
      * @param employee
      * @return
      */
-    Result<Employee> add(HttpServletRequest req, Employee employee);
+    Result<Employee> add(Employee employee);
 
     /**
      * 分页查询员工信息接口

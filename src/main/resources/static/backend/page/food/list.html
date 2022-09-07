@@ -40,20 +40,9 @@
           </el-button>
         </div>
       </div>
-      <el-table
-        :data="tableData"
-        stripe
-        class="tableBox"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column
-          type="selection"
-          width="25"
-        ></el-table-column>
-        <el-table-column
-          prop="name"
-          label="菜品名称"
-        ></el-table-column>
+      <el-table :data="tableData" stripe class="tableBox" highlight-current-row="true" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="25"></el-table-column>
+        <el-table-column prop="name" label="菜品名称" align="true"></el-table-column>
         <el-table-column prop="image" label="图片" align="center">
           <template slot-scope="{ row }">
             <el-image style="width: auto; height: 40px; border:none;cursor: pointer;" 
@@ -68,13 +57,14 @@
         <el-table-column
           prop="categoryName"
           label="菜品分类"
+          align="true"
         ></el-table-column>
-        <el-table-column label="售价">
+        <el-table-column label="售价" align="true">
           <template slot-scope="scope">
             <span style="margin-right: 10px;">￥{{ scope.row.price/100 }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="售卖状态">
+        <el-table-column label="售卖状态" align="true">
           <template slot-scope="scope">
             <span style="margin-right: 10px;">{{ scope.row.status == '0' ? '停售' : '启售' }}</span>
           </template>
@@ -82,6 +72,7 @@
         <el-table-column
           prop="updateTime"
           label="最后操作时间"
+          align="true"
         >
         </el-table-column>
         <el-table-column

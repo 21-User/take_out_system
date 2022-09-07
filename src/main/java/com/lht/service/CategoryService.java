@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lht.pojo.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lht.pojo.vo.Result;
 
 /**
 * @author 李
@@ -20,4 +21,17 @@ public interface CategoryService extends IService<Category> {
      */
     IPage pageAll(Category category, Page<Category> pageInfo);
 
+    /**
+     * 修改分类管理的接口
+     * @param category
+     * @return
+     */
+    Result<Category> edit(Category category);
+
+    /**
+     * 删除分类接口
+     * @param id
+     * @return
+     */
+    Result<String> delete(Long id);
 }

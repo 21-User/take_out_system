@@ -17,69 +17,32 @@
         class="tableBar"
         style="display: inline-block"
       >
-        <el-button
-          type="primary"
-          class="continue"
-          @click="addClass('class')"
-        >
+        <el-button type="primary" class="continue" @click="addClass('class')">
           + 新增菜品分类
         </el-button>
-        <el-button
-          type="primary"
-          @click="addClass('meal')"
-        >
+        <el-button type="primary" @click="addClass('meal')">
           + 新增套餐分类
         </el-button>
       </div>
-      <el-table
-        :data="tableData"
-        stripe
-        class="tableBox"
-      >
-        <el-table-column
-          prop="name"
-          label="分类名称"
-        /></el-table-column>
-        <el-table-column
-          prop="type"
-          label="分类类型"
-        >
+      <el-table :data="tableData" stripe class="tableBox" highlight-current-row="true" border="true">
+        <el-table-column prop="name" label="分类名称" align="center"/></el-table-column>
+        <el-table-column prop="type" label="分类类型" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.type == '1' ? '菜品分类': '套餐分类' }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="updateTime"
-          label="操作时间"
-        >
+        <el-table-column prop="updateTime" label="操作时间" align="center">
         <template slot-scope="scope">
          {{scope.row.updateTime}}
         </template>
         </el-table-column>
-        <el-table-column
-          prop="sort"
-          label="排序"
-        /></el-table-column>
-        <el-table-column
-          label="操作"
-          width="160"
-          align="center"
-        >
+        <el-table-column prop="sort" label="排序" align="center" /></el-table-column>
+        <el-table-column label="操作" width="160" align="center">
           <template slot-scope="scope">
-            <el-button
-              type="text"
-              size="small"
-              class="blueBug"
-              @click="editHandle(scope.row)"
-            >
+            <el-button type="text" size="small" class="blueBug" @click="editHandle(scope.row)">
               修改
             </el-button>
-            <el-button
-              type="text"
-              size="small"
-              class="delBut non"
-              @click="deleteHandle(scope.row.id)"
-            >
+            <el-button type="text" size="small" class="delBut non" @click="deleteHandle(scope.row.id)">
               删除
             </el-button>
           </template>
@@ -87,7 +50,7 @@
       </el-table>
       <el-pagination
         class="pageList"
-        :page-sizes="[10, 20, 30, 40]"
+        :page-sizes="[6, 10, 20, 30, 40]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="counts"
@@ -155,7 +118,7 @@
             action: '',
             counts: 0,
             page: 1,
-            pageSize: 10,
+            pageSize: 6,
             tableData: [],
             type :'',
             classData: {
@@ -225,7 +188,7 @@
             }).then(() => {
               deleCategory(id).then(res => {
                 if (res.code === 1) {
-                  this.$message.success('删除成功！')
+                  this.$message.success(res.msg || '删除成功！')
                   this.handleQuery()
                 } else {
                   this.$message.error(res.msg || '操作失败')

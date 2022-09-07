@@ -39,6 +39,13 @@ public class CategoryController {
         return Result.success(category);
     }
 
+    /**
+     * 分页查询分类的控制器
+     * @param page
+     * @param pageSize
+     * @param category
+     * @return
+     */
     @GetMapping("/page")
     public Result<IPage<Category>> page(@RequestParam Integer page, @RequestParam Integer pageSize, Category category) {
 
@@ -46,7 +53,28 @@ public class CategoryController {
 
         categoryService.pageAll(category, pageInfo);
 
-        return null;
+        return Result.success(pageInfo);
+    }
+
+    /**
+     * 修改分类
+     * @param category
+     * @return
+     */
+    @PutMapping
+    public Result<Category> edit(@RequestBody Category category) {
+
+        return categoryService.edit(category);
+    }
+
+    /**
+     * 修改分类
+     * @return
+     */
+    @DeleteMapping
+    public Result<String> delete(Long id) {
+
+        return categoryService.delete(id);
     }
 
 }

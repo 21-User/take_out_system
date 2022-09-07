@@ -26,25 +26,27 @@ public class GlobalExceptionHandler {
         log.info(e.getMessage());
 
         if (e.getMessage().contains("Duplicate entry")) {
-                String[] str1 = e.getMessage().split(" ");
-
-            String duplicateKey = str1[2].substring(1, 8);
-
-
-            String msg = duplicateKey + "已存在请重新输入！";
-
-                System.out.println("测试异常的信息" + msg);
-
-                return Result.error(msg);
+            return Result.error("您输入的值已存在！");
         }
 
         return Result.error("账号不能重复！");
     }
 
+    /**
+     * 类型转换异常的处理方法
+     * @param e
+     * @return
+     */
     @ExceptionHandler(ClassCastException.class)
     public Result<String> classCastException(ClassCastException e) {
         log.info("异常信息为:{}", e.getMessage());
 
         return Result.error("类型转换异常");
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public Result<String> customException(CustomException e) {
+
+        return Result.error(e.getMessage());
     }
 }
