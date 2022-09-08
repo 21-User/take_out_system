@@ -1,5 +1,9 @@
 package com.lht.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -7,6 +11,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -27,16 +33,29 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
      * 扩展mvc框架的消息转换器
+     * 对象映射器:基于jackson将Java对象转为json，或者将json转为Java对象
+     * 将JSON解析为Java对象的过程称为 [从JSON反序列化Java对象]
+     * 从Java对象生成JSON的过程称为 [序列化Java对象到JSON]
      * @param converters
      */
     @Override
     protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        log.info("扩展消息转换器...");
-        //创建消息转换器对象
-        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
-        //设置对象转换器，底层使用Jackson将Java对象转为json
-        messageConverter.setObjectMapper(new JacksonObjectMapper());
-        //将上面的消息转换器对象追加到mvc框架的转换器集合中
-        converters.add(0,messageConverter);
+
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        ObjectMapper objectMapper = converter.getObjectMapper();
+        // 生成JSON时,将所有Long转换成String
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+        simpleModule.addSerializer(BigInteger.class, ToStringSerializer.instance);
+        objectMapper.registerModule(simpleModule);
+        // 时间格式化
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+        // 设置格式化内容
+        converter.setObjectMapper(objectMapper);
+        converters.add(0, converter);
     }
+
 }

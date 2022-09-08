@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.yulichang.base.MPJBaseServiceImpl;
 import com.lht.exception.CustomException;
 import com.lht.mapper.DishMapper;
 import com.lht.mapper.SetmealMapper;
@@ -21,6 +22,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author 李
 * @description 针对表【category(菜品及套餐分类)】的数据库操作Service实现
@@ -28,7 +31,7 @@ import org.springframework.stereotype.Service;
 */
 @Service
 @Slf4j
-public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
+public class CategoryServiceImpl extends MPJBaseServiceImpl<CategoryMapper, Category>
     implements CategoryService{
 
     /**
@@ -44,6 +47,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     private SetmealService setmealService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private CategoryMapper categoryMapper;
 
     /**
@@ -56,7 +62,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     public IPage pageAll(Category category, Page<Category> pageInfo) {
         LambdaQueryWrapper<Category> lqw = new LambdaQueryWrapper<>();
 
-        lqw.orderBy(true, true, Category::getSort);
+        lqw.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
 
         Page<Category> pageData = page(pageInfo, lqw);
 
@@ -109,6 +115,26 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
 
 
         return Result.success("删除成功");
+    }
+
+    /**
+     * 获取菜品分类的分类名称
+     * @param category
+     * @return
+     */
+    @Override
+    public Result<List<Category>> findType(Category category) {
+
+        LambdaQueryWrapper<Category> lqw = new LambdaQueryWrapper<>();
+
+        lqw.eq(category.getType() != null, Category::getType, category.getType());
+
+        //先根据sort值进行升序排序，相等的情况下再根据更新时间进行降序排序
+        lqw.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
+
+        List<Category> list = categoryService.list(lqw);
+
+        return Result.success(list);
     }
 }
 

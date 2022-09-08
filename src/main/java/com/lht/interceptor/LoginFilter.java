@@ -42,6 +42,7 @@ public class LoginFilter implements Filter {
 
         //需要放行的url
         String[] urls = new String[]{
+                "/common/**",
                 "/employee/login",
                 "/employee/logout",
                 "/backend/**",

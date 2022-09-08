@@ -1,5 +1,6 @@
 package com.lht.mapper;
 
+import com.github.yulichang.base.MPJBaseMapper;
 import com.lht.pojo.entity.Category;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 * @Entity com.lht.pojo.entity.Category
 */
 @Mapper
-public interface CategoryMapper extends BaseMapper<Category> {
+public interface CategoryMapper extends MPJBaseMapper<Category> {
 
 }
 

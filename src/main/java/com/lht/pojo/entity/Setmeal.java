@@ -3,19 +3,17 @@ package com.lht.pojo.entity;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
- * 员工信息
- * @author 李
- * @TableName employee
+ * 套餐
+ * @TableName setmeal
  */
-@TableName(value ="employee")
+@TableName(value ="setmeal")
 @Data
-public class Employee implements Serializable {
+public class Setmeal implements Serializable {
     /**
      * 主键
      */
@@ -23,39 +21,39 @@ public class Employee implements Serializable {
     private Long id;
 
     /**
-     * 姓名
+     * 菜品分类id
+     */
+    private Long categoryId;
+
+    /**
+     * 套餐名称
      */
     private String name;
 
     /**
-     * 用户名
+     * 套餐价格
      */
-    private String username;
+    private BigDecimal price;
 
     /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     * 手机号
-     */
-    private String phone;
-
-    /**
-     * 性别
-     */
-    private String sex;
-
-    /**
-     * 身份证号
-     */
-    private String idNumber;
-
-    /**
-     * 状态 0:禁用，1:正常
+     * 状态 0:停用 1:启用
      */
     private Integer status;
+
+    /**
+     * 编码
+     */
+    private String code;
+
+    /**
+     * 描述信息
+     */
+    private String description;
+
+    /**
+     * 图片
+     */
+    private String image;
 
     /**
      * 创建时间
@@ -66,7 +64,7 @@ public class Employee implements Serializable {
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private Date updateTime;
 
     /**
@@ -78,8 +76,13 @@ public class Employee implements Serializable {
     /**
      * 修改人
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private Long updateUser;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,6 @@
 package com.lht.mapper;
 
+import com.github.yulichang.base.MPJBaseMapper;
 import com.lht.pojo.entity.Dish;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 * @Entity com.lht.pojo.entity.Dish
 */
 @Mapper
-public interface DishMapper extends BaseMapper<Dish> {
+public interface DishMapper extends MPJBaseMapper<Dish> {
 
 }
 

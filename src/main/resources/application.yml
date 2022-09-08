@@ -12,8 +12,6 @@ spring:
   #    springboot2.6开始，默认禁止循环依赖,设置为true开启循环依赖
   main:
     allow-circular-references: true
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   configuration:
@@ -24,3 +22,5 @@ mybatis-plus:
     db-config:
       #主键生成
       id-type: assign_id
+21file:
+  path: D:\testFileUpload\test\

@@ -2,6 +2,7 @@ package com.lht.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lht.pojo.dto.DishDto;
 import com.lht.pojo.entity.Dish;
 import com.lht.pojo.vo.Result;
 import com.lht.service.DishService;
@@ -26,9 +27,9 @@ public class DishController {
     private DishService dishService;
 
     @GetMapping("/page")
-    public Result<IPage<Dish>> page(@RequestParam Integer page, @RequestParam Integer pageSize, Dish dish) {
+    public Result<IPage<DishDto>> page(@RequestParam Integer page, @RequestParam Integer pageSize, Dish dish) {
 
-        Page<Dish> pageInfo = new Page<>(page, pageSize);
+        Page<DishDto> pageInfo = new Page<>(page, pageSize);
 
         dishService.findByPage(pageInfo, dish);
 

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 分类管理控制器
  * @Author lihetao
@@ -77,4 +79,14 @@ public class CategoryController {
         return categoryService.delete(id);
     }
 
+    /**
+     * 获取菜品分类的分类名称
+     * @param category
+     * @return
+     */
+    @GetMapping("/list")
+    public Result<List<Category>> list(Category category) {
+
+        return categoryService.findType(category);
+    }
 }
