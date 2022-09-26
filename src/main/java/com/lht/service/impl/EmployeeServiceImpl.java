@@ -67,7 +67,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
 
         lqw.orderByDesc(Employee::getCreateTime);
 
-        Page<Employee> pageData = this.page(pageInfo, lqw);
+        Page<Employee> pageData = page(pageInfo, lqw);
 
         return pageData;
     }

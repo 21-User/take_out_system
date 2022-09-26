@@ -49,13 +49,14 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination class="pageList" :page-sizes="[6, 10, 20, 30, 40]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="counts"
-        :current-page.sync="page"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
+      <el-pagination
+              class="pageList"
+              :page-sizes="[6, 10, 20, 30, 40]"
+              :page-size="pageSize"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="counts"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
       ></el-pagination>
     </div>
   </div>
@@ -98,7 +99,7 @@
             await getMemberList(params).then(res => {
               if (String(res.code) === '1') {
                 this.tableData = res.data.records || []
-                this.counts = res.data.total
+                this.counts = Number(res.data.total)
               }
             }).catch(err => {
               this.$message.error('请求出错了：' + err)

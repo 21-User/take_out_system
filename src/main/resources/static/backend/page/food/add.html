@@ -461,7 +461,7 @@
                   delete params.id
                   addDish(params).then(res => {
                     if (res.code === 1) {
-                      this.$message.success('菜品添加成功！')
+                      this.$message.success(res.msg || '菜品添加成功！')
                       if (!st) {
                         this.goBack()
                       } else {
@@ -490,7 +490,8 @@
                   delete params.updateTime
                   editDish(params).then(res => {
                     if (res.code === 1) {
-                      this.$message.success('菜品修改成功！')
+                      console.log("成功消息为：----------------" + res.msg)
+                      this.$message.success(res.msg || '菜品修改成功！')
                       this.goBack()
                     } else {
                       this.$message.error(res.msg || '操作失败')

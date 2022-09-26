@@ -8,10 +8,10 @@ import com.lht.pojo.vo.Result;
 import com.lht.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sun.rmi.runtime.Log;
+
+import java.util.List;
 
 /**
  * 菜品管理控制器
@@ -26,6 +26,18 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
+
+    /**
+     * 添加菜品
+     * @param dishDto
+     * @return
+     */
+    @PostMapping
+    public Result<String> add(@RequestBody DishDto dishDto ) {
+
+        return dishService.saveWithFlavor(dishDto);
+    }
+
     @GetMapping("/page")
     public Result<IPage<DishDto>> page(@RequestParam Integer page, @RequestParam Integer pageSize, Dish dish) {
 
@@ -35,4 +47,39 @@ public class DishController {
 
         return Result.success(pageInfo);
     }
+
+    /**
+     * 通过id查询菜品和对应的口味
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Result<DishDto> getById(@PathVariable("id") Long id) {
+
+        return dishService.getByIdWithFlavor(id);
+    }
+
+    /**
+     * 修改和批量修改菜品状态
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public Result<Dish> EditStatus(@PathVariable Integer status, @RequestParam List<Long> id) {
+
+        return dishService.batchEditStatus(status, id);
+    }
+
+    /**
+     * 删除和批量删除菜品
+     * @return
+     */
+    @DeleteMapping("/id")
+    public Result<Dish> delDish(List<Long> id) {
+
+        return dishService.delDish(id);
+    }
+
+
 }

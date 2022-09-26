@@ -41,16 +41,16 @@
         </div>
       </div>
       <el-table :data="tableData" stripe class="tableBox" highlight-current-row="true" @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="25"></el-table-column>
+        <el-table-column type="selection"></el-table-column>
         <el-table-column prop="name" label="菜品名称" align="true"></el-table-column>
         <el-table-column prop="image" label="图片" align="center">
           <template slot-scope="{ row }">
-            <el-image style="width: auto; height: 40px; border:none;cursor: pointer;" 
-            :src="getImage(row.image)" 
+            <el-image style="width: auto; height: 40px; border:none;cursor: pointer;"
+            :src="getImage(row.image)"
             :preview-src-list="[ `/common/download?name=${row.image}` ]" >
             <div slot="error" class="image-slot">
               <img src="./../../images/noImg.png"  style="width: auto; height: 40px; border:none;" >
-            </div>  
+            </div>
           </el-image>
           </template>
         </el-table-column>
@@ -158,7 +158,7 @@
             await getDishPage(params).then(res => {
               if (String(res.code) === '1') {
                 this.tableData = res.data.records || []
-                this.counts = res.data.total
+                this.counts = Number(res.data.total)
               }
             }).catch(err => {
               this.$message.error('请求出错了：' + err)
